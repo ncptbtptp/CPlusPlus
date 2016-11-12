@@ -48,7 +48,6 @@ int main()
         ths[i] = std::thread(workerthread, i);
     }
 
-
     // Feed new threads
     for (size_t i = 0; i < kTaskNum; ++i) {
         lock_guard<std::mutex> lk(g_mtx);
@@ -57,7 +56,6 @@ int main()
         g_cond.notify_all();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
-
 
     for (auto &th : ths) {
         th.join();
